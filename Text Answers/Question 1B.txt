@@ -1,0 +1,87 @@
+albert_south is a boundary in-link leading into vocation.
+Using the information in scenario2, the cycle time of vocation is 60 seconds.
+
+		equals(defaultgreentime(vocation_stage0),35),
+		equals(defaultgreentime(vocation_stage1),15),
+		equals(interlimit(vocation_stage0),5),
+		equals(interlimit(vocation_stage1),5).
+
+The turnrate out of albert_south is the sum of turnrates of all its possible 
+traffic links:
+
+		equals(turnrate(vocation_stage1,albert_south,new_west),0.2),
+		equals(turnrate(vocation_stage1,albert_south,station_east),0.2).
+
+During stage 1 of vocation, traffic escapes from only albert_south. Total turnrate
+is 0.4 PCUs/second.
+
+Average flow out needs to be at least as much as the average flow in. Average flow
+into albert_south from the outside world is:
+
+		equals(turnrate(fake,outside,albert_south),0.05).
+
+This shows the average flow into albert_south from the outside world is 0.05
+PCUs/second. If minimum required greentime is denoted as 'X', then:
+
+		X * 0.4/60 = 0.05
+		X = (60*0.05)/0.4
+		So X = 7.5 seconds
+
+Therefore, the greentime of vocation_stage1 must be at least 7.5 seconds so that
+queues do not build up on Albert Street (in theory).
+
+Since cycle lengths are fixed, the greentime of vocation_stage0 must also be
+adjusted. If vocation_stage0 greentime is denoted as 'Y', then:
+
+		Y = 60-7.5-5-5
+		So Y = 42.5 seconds
+
+Therefore, the greentime of vocation_stage0 must be adjusted to 42.5 seconds
+accordingly.
+
+hepton_south is a boundary in-link leading into fox.
+Using the information in scenario2, the cycle time of fox is 50 seconds.
+
+		equals(defaultgreentime(fox_stage0),30),
+		equals(defaultgreentime(fox_stage1),10),
+		equals(interlimit(fox_stage0),5),
+		equals(interlimit(fox_stage1),5).
+
+The turnrate out of hepton_south is the sum of turnrates of all its possible 
+traffic links:
+
+		equals(turnrate(fox_stage1,hepton_south, market_east),0.1),
+		equals(turnrate(fox_stage1,hepton_south, stubbings_west),0.1).
+
+During stage 1 of fox, traffic escapes from only hepton_south. Total turnrate
+is 0.2 PCUs/second.
+
+Average flow out needs to be at least as much as the average flow in. Average flow
+into hepton_south from the outside world is:
+
+		equals(turnrate(fake,outside,hepton_south),0.07).
+
+This shows the average flow into hepton_south from the outside world is 0.07
+PCUs/second. If minimum required greentime is denoted as 'X', then:
+
+		X * 0.2/50 = 0.07
+		X = (50*0.07)/0.2
+		So X = 17.5 seconds
+
+Therefore, the greentime of fox_stage1 must be at least 17.5 seconds so that queues
+do not build up on Hepton Road (in theory).
+
+Since cycle lengths are fixed, the greentime of fox_stage0 must also be adjusted.
+If fox_stage0 greentime is denoted as 'Y', then:
+
+		Y = 50-17.5-5-5
+		So Y = 22.5 seconds
+		
+Therefore, the greentime of fox_stage0 must be adjusted to 22.5 seconds
+accordingly.
+
+If these stage lengths were put into operation in a simulation, these stage
+lengths may not be adequate if: by calculating the optimal length for one
+stage of a junction, adjusting it accordingly, and adjusting the opposite
+stage inversely leads to large queues forming at the in-link associated with
+the stage that was adjusted without optimisation. 
